@@ -1,3 +1,16 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "@auth/*": ["./src/features/auth/*"],
+      "@i18n/*": ["./src/i18n/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@store/*": ["./src/store/*"],
+      "@transactions/*": ["./src/features/transactions/*"],
+    }
+  }
 }
