@@ -1,66 +1,136 @@
 import React, { useState } from 'react';
-import styled from '@emotion/native';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from '@store/index';
+import { signUp } from '@auth/store/reducer';
+import { ImageLibraryOptions, launchImageLibrary } from 'react-native-image-picker';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { 
+  Container,
+  ErrorText,
+  LoadingView,
+  Title,
+} from '@auth/styles';
+
+import styled from '@emotion/native';
 import Button from '@shared/components/Button';
-import { useAppDispatch } from '@store/index';
+import FormInput from '@shared/components/FormInput';
+
+const options: ImageLibraryOptions = {
+  mediaType: 'photo',
+  includeBase64: false,
+  maxHeight: 2000,
+  maxWidth: 2000,
+};
 
 const SignUp = () => {
+  const [ selectedSelfie, setSelectedSelfie ] = useState<string>()
   const { t } = useTranslation();
-  const [ name, setName ] = useState<string>();
-  const [ email, setEmail ] = useState<string>();
-  const [ password, setPassword ] = useState<string>();
+  const formSchema = z.object({
+    name: z.string().min(5, t('invalid.name.message', { size: 5 })),
+    email: z.string().email(t('invalid.email.message')),
+    password: z.string().min(6, t('invalid.password.message', { size: 6 })),
+  });
+  const { loading, error } = useAppSelector(state => state.auth);
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    resolver: zodResolver(formSchema),
+  });
   const dispatch = useAppDispatch();
+
+  const handleSignUp = ({
+    name,
+    email,
+    password,
+  } : { 
+    name: string,
+    email: string,
+    password: string,
+  }) => {
+    dispatch(signUp({ name, email, password, photo: selectedSelfie }));
+  }
+
+  const handleSelfieSelection = async () => {
+    const response = await launchImageLibrary(options);
+    if (response.didCancel) {
+      console.log('[SignUp] image picker cancelled');
+    } else if (response.errorMessage) {
+      console.log('[SignUp] picker error: ', response);
+    } else {
+      const imageUri = response.assets?.[0]?.uri;
+      setSelectedSelfie(imageUri);
+    }
+  }
 
   return (
     <Container>
+      <LoadingView size={'large'} visible={loading} />
       <Title>{t('signup.title')}</Title>
-      <TextInput 
-        value={name}
-        onChangeText={setName}
-        placeholder={t('signup.name')}
-        autoCapitalize='none'
-      />
-      <TextInput 
-        value={email}
-        onChangeText={setEmail}
-        placeholder={t('signup.email')}
-        keyboardType='email-address'
-        autoCapitalize='none'
-      />
-      <TextInput 
-        value={password}
-        onChangeText={setPassword}
-        placeholder={t('signup.password')}
-        autoCapitalize='none'
-        secureTextEntry
-      />
-      <Button title={t('signup.button')} onPress={() => {}} />
+      <FormContainer>
+        <FormInput
+          control={control}
+          name={'name'}
+          placeholder={t('signup.name')}
+          autoCapitalize='none'
+        />
+        <FormInput
+          control={control}
+          name={'email'}
+          placeholder={t('signup.email')}
+          keyboardType='email-address'
+          autoCapitalize='none'
+        />
+        <FormInput
+          control={control}
+          name={'password'}
+          placeholder={t('signup.password')}
+          autoCapitalize='none'
+          secureTextEntry
+        />
+        <Selfie>
+          {selectedSelfie && 
+            <Image source={{ uri: selectedSelfie }} />
+          }
+        </Selfie>
+      </FormContainer>
+      {error && <ErrorText>{error}</ErrorText>}
+      <ButtonsContainer>
+        <Button title={t('signup.selfie')} onPress={handleSelfieSelection} />
+        <Button title={t('signup.button')} onPress={handleSubmit(handleSignUp)} />  
+      </ButtonsContainer>
     </Container>
   );
 }
 
-const Container = styled.View`
-  display: flex;
-  align-items: center;
-  margin: 50px;
+const FormContainer = styled.View`
+  flex: 2;
 `;
 
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: black;
-  text-align: center;
+const ButtonsContainer = styled.View`
+  flex: 1;
 `;
 
-export const TextInput = styled.TextInput`
-  width: 100%;
-  height: 40px;
-  border-color: gray;
-  border-width: 1px;
+const Selfie = styled.View`
+  background-color: #fff;
+  border-color: lightgray;
+  border-width: 0.5px;
   border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+  margin-vertical: 12px;
+  align-items: center;
+  padding: 20px;
+  flex-direction: column;
 `;
+
+const Image = styled.Image`
+  width: 120px;
+  height: 120px;
+  borderRadius: 75px;
+  marginEnd: 10px;
+`
 
 export default SignUp;

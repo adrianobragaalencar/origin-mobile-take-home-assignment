@@ -17,3 +17,16 @@ export interface Transactions {
   TotalPages: number;
   Transactions: Transaction[];
 }
+
+export const getTransactionDate = (transaction: Transaction) => {
+  const date = new Date(transaction.Date);
+  return date.toLocaleString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+}

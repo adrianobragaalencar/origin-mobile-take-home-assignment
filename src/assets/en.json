@@ -7,14 +7,22 @@
     "signin.account.message": "Do not have an account? ",
     "signup.account.message": "click here to sign up",
 
-    "signup.title": "SignUp Page",
+    "signup.title": "Welcome to Origin",
     "signup.name": "Enter your name",
     "signup.email": "Enter your email",
+    "signup.password": "Enter your password", 
+    "signup.selfie": "choose image",
     "signup.button": "Sign Up",
+
+    "invalid.name.message": "Name must be at least {{size}} characters",
+    "invalid.email.message": "Please enter a valid email",
+    "invalid.password.message": "Password must be at least {{size}} characters",
 
     "signin.bar.title": "Sign In",
     "signup.bar.title": "Sign Up",
     "transactions.bar.title": "Transactions",
-    "details.bar.title": "Details"
+    "details.bar.title": "Details",
+
+    "transactions.header.text": "Transactions"
   }
 }

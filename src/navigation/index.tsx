@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import SignIn from '@auth/screens/SignIn';
 import SignUp from '@auth/screens/SignUp';
 import Transactions from '@transactions/screens/Transactions';
 import TransactionDetails from '@transactions/screens/TransactionDetails';
 import { Transaction } from '@transactions/models';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export type Routes = {
   signIn: undefined;
   signUp: undefined;
   transactions: undefined;
-  details: { transation: Transaction };
+  details: { transaction: Transaction };
 }
 
 export type RouteParamList = StackNavigationProp<Routes>;
@@ -48,13 +49,20 @@ const transactionStack: RouteMap[] = [
 
 const { Navigator, Screen } = createStackNavigator();
 
-let isAuthenticated = !true;
-
 export const MainStack = () => {
-  const stack = isAuthenticated ? transactionStack : authStack;
+  const [ user, setUser ] = useState<FirebaseAuthTypes.User | null>();
+  const stack = user ? transactionStack : authStack;
+
+  useEffect(() => {
+    return auth().onAuthStateChanged(u => {
+      console.log(`[MainStack] user ${u?.displayName} ${u?.email} ${u?.photoURL}`);
+      setUser(u);
+    });
+  }, []);
+
   return (
     <Navigator screenOptions={{
-      title: ''
+      title: '',
     }}>
       {stack.map(({name, screen}) => (
         <Screen key={name} name={name} component={screen} />

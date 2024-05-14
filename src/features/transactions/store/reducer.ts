@@ -40,13 +40,13 @@ const transactionSlice = createSlice({
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.loading = false;
-        state.transactions = action.payload
+        state.transactions = action.payload;
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message
-      })
-  }
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const allTransactions = (state: RootState) => state.transcations;

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/native';
 import { GestureResponderEvent } from 'react-native';
 
@@ -13,16 +14,16 @@ const Button = ({ title, disabled, onPress }: ButtonProps) => (
   </TouchableOpacity>
 )
 
-export const TouchableOpacity = styled.TouchableOpacity`
+const TouchableOpacity = styled.TouchableOpacity`
   background-color: #111;
   border-radius: 10px;
   padding-vertical: 12px;
   padding-horizontal: 20px;
-  margin-top: 40px;
+  margin-top: 10px;
   width: 100%;
 `;
 
-export const Text = styled.Text`
+const Text = styled.Text`
   color: #fff;
   font-size: 18px;
   font-weight: bold;

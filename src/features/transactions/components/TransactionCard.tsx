@@ -1,6 +1,7 @@
 import React from 'react';
-import { Transaction } from '@transactions/models';
+import { Transaction, getTransactionDate } from '@transactions/models';
 import styled from '@emotion/native';
+import { Amount, DateText, Image, placeholder } from '@transactions/styles';
 
 type TransactionCardProps = {
   transaction: Transaction;
@@ -10,58 +11,48 @@ type TransactionCardProps = {
 const TransactionCard = ({ transaction, onPress }: TransactionCardProps) => {
   return (
     <Container onPress={onPress}>
-      <Details>
-        <VendorText>{transaction.Vendor}</VendorText>
-        <DetailsHorizontal>
-          <TypeText>({transaction.Type})</TypeText>
-        </DetailsHorizontal>
-        <DateText>{new Date(transaction.Date).toLocaleDateString()}</DateText>
-      </Details>
+        <Image
+          source={{
+            uri: transaction.ReceiptImage ?? placeholder,
+          }}
+          resizeMode='cover'
+        />
+      <View>
+        <Vendor>{transaction.Vendor}</Vendor>
+        <DateText>{getTransactionDate(transaction)}</DateText>
+        <Type>{transaction.Type}</Type>
+      </View>
+      <Amount type={transaction.Type}>
+        ${transaction.Amount.toFixed(2)}
+      </Amount>
     </Container>
   );
 }
 
-export const Container = styled.TouchableOpacity`
+const Container = styled.TouchableOpacity`
   background-color: #fff;
-  margin-vertical: 4px;
-  margin-horizontal: 8px;
-  border-radius: 8px;
-  shadow-color: #000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.1;
-  shadow-radius: 8px;
   elevation: 5;
   flex-direction: row;
   align-items: center;
   padding: 12px;
 `;
 
-
-export const Details = styled.View`
+const View = styled.View`
   flex: 1;
 `;
 
-export const DetailsHorizontal = styled.View`
-  flex: 1;
-  flex-direction: row;
-`;
-
-export const DateText = styled.Text`
-  color: #757575;
-  font-size: 14px;
-`;
-
-export const VendorText = styled.Text`
+const Vendor = styled.Text`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 4px;
 `;
 
-export const TypeText = styled.Text`
-  font-size: 14px;
+const Type = styled.Text`
+  font-size: 13px;
   color: #616161;
   margin: 4px;
   font-style: italic;
 `;
+
 
 export default TransactionCard;
