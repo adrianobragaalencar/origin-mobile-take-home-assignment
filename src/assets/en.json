@@ -13,6 +13,7 @@
     "signup.password": "Enter your password", 
     "signup.selfie": "choose image",
     "signup.button": "Sign Up",
+    "signup.attach.image": "Attach Image",
 
     "invalid.name.message": "Name must be at least {{size}} characters",
     "invalid.email.message": "Please enter a valid email",
@@ -22,6 +23,8 @@
     "signup.bar.title": "Sign Up",
     "transactions.bar.title": "Transactions",
     "details.bar.title": "Details",
+    "details.location.text": "Location",
+    "details.location.button": "Set current location",
 
     "transactions.header.text": "Transactions"
   }

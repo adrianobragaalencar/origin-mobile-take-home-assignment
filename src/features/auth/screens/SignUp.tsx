@@ -9,10 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { 
   Container,
   ErrorText,
-  LoadingView,
   Title,
 } from '@auth/styles';
-
+import Spinner from 'react-native-loading-spinner-overlay';
 import styled from '@emotion/native';
 import Button from '@shared/components/Button';
 import FormInput from '@shared/components/FormInput';
@@ -25,7 +24,7 @@ const options: ImageLibraryOptions = {
 };
 
 const SignUp = () => {
-  const [ selectedSelfie, setSelectedSelfie ] = useState<string>()
+  const [ selectedSelfie, setSelectedSelfie ] = useState<string>();
   const { t } = useTranslation();
   const formSchema = z.object({
     name: z.string().min(5, t('invalid.name.message', { size: 5 })),
@@ -69,7 +68,7 @@ const SignUp = () => {
 
   return (
     <Container>
-      <LoadingView size={'large'} visible={loading} />
+      <Spinner size={'large'} visible={loading} />
       <Title>{t('signup.title')}</Title>
       <FormContainer>
         <FormInput
@@ -92,10 +91,9 @@ const SignUp = () => {
           autoCapitalize='none'
           secureTextEntry
         />
+        <Text>{t('signup.attach.image')}</Text> 
         <Selfie>
-          {selectedSelfie && 
-            <Image source={{ uri: selectedSelfie }} />
-          }
+          { selectedSelfie && <Image source={{ uri: selectedSelfie }} /> }
         </Selfie>
       </FormContainer>
       {error && <ErrorText>{error}</ErrorText>}
@@ -115,6 +113,12 @@ const ButtonsContainer = styled.View`
   flex: 1;
 `;
 
+const Text = styled.Text`
+  color: black;
+  font-size: 16px;
+  margin-top: 8px;    
+`;
+
 const Selfie = styled.View`
   background-color: #fff;
   border-color: lightgray;
@@ -124,6 +128,7 @@ const Selfie = styled.View`
   align-items: center;
   padding: 20px;
   flex-direction: column;
+  height: 160px;
 `;
 
 const Image = styled.Image`

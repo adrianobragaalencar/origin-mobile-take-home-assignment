@@ -4,21 +4,20 @@ import SignIn from '@auth/screens/SignIn';
 import SignUp from '@auth/screens/SignUp';
 import Transactions from '@transactions/screens/Transactions';
 import TransactionDetails from '@transactions/screens/TransactionDetails';
-import { Transaction } from '@transactions/models';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export type Routes = {
   signIn: undefined;
   signUp: undefined;
   transactions: undefined;
-  details: { transaction: Transaction };
+  details: { id: number; };
 }
 
 export type RouteParamList = StackNavigationProp<Routes>;
 
 type RouteMap = {
   name: keyof Routes;
-  screen: React.ComponentType<{}>;
+  screen: React.ComponentType;
   title?: string;
 }
 
@@ -63,6 +62,7 @@ export const MainStack = () => {
   return (
     <Navigator screenOptions={{
       title: '',
+      headerTintColor: 'black',
     }}>
       {stack.map(({name, screen}) => (
         <Screen key={name} name={name} component={screen} />

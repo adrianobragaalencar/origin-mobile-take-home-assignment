@@ -1,5 +1,4 @@
 import styled from '@emotion/native';
-import Spinner from 'react-native-loading-spinner-overlay';
 
 export const Container = styled.View`
   flex: 1;
@@ -19,5 +18,3 @@ export const Title = styled.Text`
   color: black;
   text-align: center;
 `;
-
-export const LoadingView = styled(Spinner)``;

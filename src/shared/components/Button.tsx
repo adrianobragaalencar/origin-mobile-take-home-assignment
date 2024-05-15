@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from '@emotion/native';
-import { GestureResponderEvent } from 'react-native';
 
 type ButtonProps = {
   title: string;
-  disabled?: boolean,
-  onPress?: ((event: GestureResponderEvent) => void) | undefined;
+  disabled?: boolean;
+  onPress?: () => void;
 }
 
 const Button = ({ title, disabled, onPress }: ButtonProps) => (

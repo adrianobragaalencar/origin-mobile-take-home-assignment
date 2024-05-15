@@ -1,11 +1,9 @@
-import i18n, { Resource } from 'i18next';
+import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from '../assets/en.json';
 
-const resources: Resource = { en };
-
 i18n.use(initReactI18next).init({
-  resources,
+  resources: { en },
   fallbackLng: 'en',
   compatibilityJSON: 'v3',
 });

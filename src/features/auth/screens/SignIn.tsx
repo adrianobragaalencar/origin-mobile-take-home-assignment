@@ -10,9 +10,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { 
   Container,
   ErrorText,
-  LoadingView,
   Title,
 } from '@auth/styles';
+import Spinner from 'react-native-loading-spinner-overlay';
 import styled from '@emotion/native';
 import Button from '@shared/components/Button';
 import FormInput from '@shared/components/FormInput';
@@ -26,7 +26,7 @@ const SignIn = () => {
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
     },
     resolver: zodResolver(formSchema),
   });
@@ -34,7 +34,7 @@ const SignIn = () => {
   const navigation = useNavigation<RouteParamList>();
   const dispatch = useAppDispatch();
 
-  const handleSignIn = ({ email, password }: { email: string, password: string }) => {
+  const handleSignIn = ({ email, password } : { email: string, password: string }) => {
     dispatch(signIn({ email, password }));
   }
 
@@ -46,7 +46,7 @@ const SignIn = () => {
 
   return (
     <Container>
-      <LoadingView size={'large'} visible={loading} />
+      <Spinner size={'large'} visible={loading} />
       <Title>{t('signin.title')}</Title>
       <FormInput
         control={control}
@@ -75,11 +75,13 @@ const SignIn = () => {
 const LinkContainer = styled.View`
   flex: 1;
   flexDirection: row;
+  justify-content: center;
   align-items: center;
 `;
 
 const Text = styled.Text`
   font-size: 14px;
+  color: black;
 `;
 
 const Link = styled(Text)`

@@ -41,13 +41,13 @@ const Transactions = () => {
 
   const onLoadMore = () => {
     setPageSize(prev => prev + PAGE_SIZE);
-    dispatch(fetchTransactions({ page, pageSize }))
+    dispatch(fetchTransactions({ page, pageSize }));
   };
 
   const renderTransactionItem = ({ item }: { item: Transaction}) => (
     <TransactionCard
       transaction={item}
-      onPress={() => navigation.navigate('details', { transaction: item })}
+      onPress={() => navigation.navigate('details', { id: item.Id })}
     />
   );
 
@@ -86,6 +86,7 @@ const HeaderText = styled.Text`
   font-weight: bold;
   font-size: 16px;
   padding: 12px;
+  color: black;
 `;
 
 const Divider = styled.View`

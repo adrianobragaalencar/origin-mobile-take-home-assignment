@@ -15,6 +15,7 @@ const FormInput = ({ control, name, ...rest }: FormInputProps) => (
     render={({ field: { value, onChange, onBlur }, fieldState: { error }}) => (
     <>
       <TextInput
+        placeholderTextColor={'gray'}
         value={value}
         onChangeText={onChange}
         onBlur={onBlur}
@@ -34,6 +35,7 @@ const TextInput = styled.TextInput`
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  color: gray;
 `;
 
 const ErrorText = styled.Text`

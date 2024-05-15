@@ -1,6 +1,6 @@
 import React from 'react';
-import { Transaction, getTransactionDate } from '@transactions/models';
 import styled from '@emotion/native';
+import { Transaction, getTransactionDate } from '@transactions/models';
 import { Amount, DateText, Image, placeholder } from '@transactions/styles';
 
 type TransactionCardProps = {
@@ -13,7 +13,7 @@ const TransactionCard = ({ transaction, onPress }: TransactionCardProps) => {
     <Container onPress={onPress}>
         <Image
           source={{
-            uri: transaction.ReceiptImage ?? placeholder,
+            uri: transaction.ReceiptImage ?? placeholder,
           }}
           resizeMode='cover'
         />
@@ -31,7 +31,6 @@ const TransactionCard = ({ transaction, onPress }: TransactionCardProps) => {
 
 const Container = styled.TouchableOpacity`
   background-color: #fff;
-  elevation: 5;
   flex-direction: row;
   align-items: center;
   padding: 12px;

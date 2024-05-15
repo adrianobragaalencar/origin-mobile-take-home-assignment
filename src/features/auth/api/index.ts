@@ -1,6 +1,6 @@
+import { Platform } from 'react-native';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
-import { Platform } from 'react-native'
 import { User } from '@auth/models';
 
 class AuthApi {
@@ -24,6 +24,7 @@ class AuthApi {
         displayName: name,
         photoURL,
       });
+      await credentials.user.reload();
       return this.getLocalUser(user);
     } catch (e) {
       console.log('[AuthApi] ERROR-signUp', e);
@@ -42,16 +43,16 @@ class AuthApi {
 
   async getUser() {
     const user = auth().currentUser!!;
-    await user.reload();
     return this.getLocalUser(user);
   }
 
   private getLocalUser(user: FirebaseAuthTypes.User) {
-    console.log(`[AuthApi]user ${user}`);
+    const { displayName, email, photoURL } = user;
+    console.log(`[AuthApi]user ${email}`);
     return {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
+      displayName,
+      email,
+      photoURL,
     } as User;
   }
 
@@ -68,15 +69,6 @@ class AuthApi {
       console.log('[AuthApi] ERROR-updatePhoto', e);
     } 
     return null;
-  }
-
-  private async getPhoto(uid: string, filename: string) {
-    try {
-      const ref = storage().ref( `origin-mobile/${uid}/${filename}`);
-      return await ref.getDownloadURL();
-    } catch (e) {
-      console.log('[AuthApi] ERROR-getPhoto', e);
-    }
   }
 }
 

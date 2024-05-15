@@ -16,7 +16,7 @@ const initialState: AuthState = {
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
-  async ({ email, password }: { email: string, password: string }) => {
+  async ({ email, password } : { email: string, password: string }) => {
     return await authApi.signIn(email, password);
   },
 );
@@ -40,16 +40,12 @@ export const signUp = createAsyncThunk(
 
 export const signOut = createAsyncThunk(
   'auth/signOut',
-  async () => {
-    return await authApi.signOut();
-  },
+  async () => await authApi.signOut(),
 );
 
 export const getUser = createAsyncThunk(
   'auth/getUser',
-  async () => {
-    return await authApi.getUser();
-  },
+  async () => await authApi.getUser(),
 );
 
 const authSlice = createSlice({
@@ -69,6 +65,7 @@ const authSlice = createSlice({
     .addCase(signIn.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
+      state.error = undefined;
     })
     .addCase(signIn.rejected, (state, action) => {
       state.loading = false;
@@ -81,6 +78,7 @@ const authSlice = createSlice({
     .addCase(signUp.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
+      state.error = undefined;
     })
     .addCase(signUp.rejected, (state, action) => {
       state.loading = false;
@@ -90,11 +88,12 @@ const authSlice = createSlice({
     builder.addCase(signOut.pending, state => {
       state.loading = true;
     })
-    .addCase(signOut.fulfilled, (state, action) => {
+    .addCase(signOut.fulfilled, (state) => {
       state.loading = false;
       state.user = undefined;
+      state.error = undefined;
     })
-    .addCase(signOut.rejected, (state, action) => {
+    .addCase(signOut.rejected, (state) => {
       state.loading = false;
       state.user = undefined;
     });
