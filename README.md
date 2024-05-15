@@ -3,7 +3,7 @@
 ## Video Link
 
 Watch a screen recording presenting the app on Google Drive:
-[View Presentation]()
+[View Presentation](https://drive.google.com/drive/folders/11Wqda4TOTzSbt4gIKoYArExOWhG5yhB1?usp=sharing)
 
 ## Setup Instructions
 
@@ -21,6 +21,8 @@ To get started with the project, follow the steps below:
 4. **Configure Firebase:**
     - Create a new Firebase project: Firebase Console
     - Follow the instructions at React Native Firebase to configure Android and iOS credentials.
+    - Copy google-services to /android/app/
+    - Using Xcode, open the projects /ios/{projectName}.xcodeproj file (or /ios/{projectName}.xcworkspace if using Pods).
 5. **Configure Google Maps for Android:**
    - If you don't have one already, sign up for a Google Cloud Platform account at [Google Cloud Platform](https://console.cloud.google.com/).
    - Navigate to the GCP console and create a new project 
