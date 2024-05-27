@@ -1,100 +1,60 @@
 # Origin Mobile Take Home Assignment
-## **Introduction**
 
-This assignment assesses your skills and approach to building a mobile application using React Native. The focus is on creating an application that includes user authentication, transaction management, and integration of specific mobile features. It's important to consider that there will also be a React web desktop version of the same application. While you are not required to write the desktop version, your design should be scalable and maintainable, keeping in mind the existence of the web version.
+## Video Link
 
-## **Assignment Overview**
+Watch a screen recording presenting the app on Google Drive:
+[View Presentation](https://drive.google.com/drive/folders/11Wqda4TOTzSbt4gIKoYArExOWhG5yhB1?usp=sharing)
 
-Your task is to create a simple mobile application with the following features:
+## Setup Instructions
 
-### **1. Sign-In and Sign-Up Page**
+To get started with the project, follow the steps below:
 
-- **Sign-In Page**: Allow users to sign in to their account.
-- **Sign-Up Page**: Allow new users to create an account. During the sign-up process, users must enter basic information (like name, email, password, etc.) and upload a selfie.
+1. **Clone the Repository:**
+   ```bash
+   git clone git@github.com:adrianobragaalencar/origin-mobile-take-home-assignment.git
+2. **Install Dependencies:**
+   ```bash
+   npm install
+3. **Install Dependencies:**
+   ```bash
+   npx pod-install
+4. **Configure Firebase:**
+    - Create a new Firebase project: Firebase Console
+    - Follow the instructions at React Native Firebase to configure Android and iOS credentials.
+    - Copy google-services to /android/app/
+    - Using Xcode, open the projects /ios/{projectName}.xcodeproj file (or /ios/{projectName}.xcworkspace if using Pods).
+5. **Configure Google Maps for Android:**
+   - If you don't have one already, sign up for a Google Cloud Platform account at [Google Cloud Platform](https://console.cloud.google.com/).
+   - Navigate to the GCP console and create a new project 
+   - In the GCP console, navigate to "APIs & Services" > "Library".
+   - Enable the "Google Maps Android API" for your project.
+   - In the GCP console, go to "APIs & Services" > "Credentials".
+   - Click on "Create credentials" and choose "API key".
+   - Configure Android app following instructions on
+    https://github.com/react-native-maps/react-native-maps/blob/master/docs/installation.md
+5. **Create a `.env` File:**
+    ```bash
+    API_URL=https://tque3jpn1e.execute-api.us-east-1.amazonaws.com
+    TRANSACTION_PATH=mobile-tha/transactions
+## Technologies Used
 
-### **2. Transactions Listing Page**
+- **Styling**: emotion/native
+- **App State management**: redux-toolkit
+- **Persistence**: redux-persist and async storage
+- **API Integration**: axios
+- **Authentication**: Firebase Authentication
+- **Image Storage**: Firebase Storage
+- **Maps**: react-native-maps
+- **Navigation**: react-navigation
+- **Validation**: react-hook-form with zod
 
-- Display a list of transactions associated with the logged-in user. Each list item should have a summary of the transaction (e.g., date, amount, type).
-    - Required: pull to refresh
-    - Optional: sorting, filtering (client side)
+## Considerations
 
-### **3. Transaction Details Page**
+This project was developed to demonstrate React Native skills. Emphasis was placed on writing concise, clean, and fully functional code, alongside providing an acceptable UI experience.
 
-- When a user selects a transaction from the list, they should be navigated to a detailed view of the transaction.
-    - **Required**: Allow users to attach the current GPS latitude and longitude coordinates to the transaction.
-    - **Optional**: Provide an option to attach a receipt to the transaction.
-    - Optional: Display location on the map
+## Pending Work
 
-### **4. App State Management Considerations**
+Due to time constraints, the following features were not implemented:
 
-- Ensure that the application handles the app state effectively, especially during typical mobile interactions such as using the power button or home button. The app should maintain a consistent state and user experience.
-- Handle offline mode
-
-## **Technical Requirements**
-
-- The application should be developed using React Native.
-- Ensure the app is compatible with both iOS and Android.
-- Implement proper error handling and validation, especially for the sign-in and sign-up processes.
-- Write clean, modular, and reusable code. Consider component reusability for the React web desktop version.
-- Include a README file with clear instructions on how to set up and run your application.
-
-## Available Resources
-
-You have access to the following API’s:
-
-**Transactions - Listing** 
-
-**Query parameters**
-
-page: required
-
-pageSize: required
-
-```markdown
-GET https://tque3jpn1e.execute-api.us-east-1.amazonaws.com/mobile-tha/transactions?page=?&pageSize=?
-```
-
-**Transactions - Details**
-
-```markdown
-GET https://tque3jpn1e.execute-api.us-east-1.amazonaws.com/mobile-tha/transactions/{id}
-```
-
-**Transactions - Update coordinates**
-
-```markdown
-POST https://tque3jpn1e.execute-api.us-east-1.amazonaws.com/mobile-tha/transactions/{id}/coordinates
-```
-
-Body
-
-```
-{
-    "Lat": 1, --double,required, case sensitive
-    "Lon":1 --double, required, case sensitive
-}
-```
-
-**Transactions - Upload receipt**
-
-```markdown
-POST https://tque3jpn1e.execute-api.us-east-1.amazonaws.com/mobile-tha/transactions/{id}/receipt
-```
-
-Body
-
-```markdown
-{
-   "ReceiptImageUrl": "foo" --string,required, case sensitive
-}
-```
-
-We don't have APIs for sign-in/sign-up, it is up to you to decide the best way to handle it.
-
-Note: both POST APIs do not update internal resources as it would affect other candidates, thus such APIs are for demonstration only.
-
-## **Submission Guidelines**
-
-- Provide the source code via a GitHub repository.
-- Include a video demonstration of the app covering all the functionalities.
-- Document any assumptions made and your thought process in the README file.
+- Receipt upload
+- Sorting and filtering

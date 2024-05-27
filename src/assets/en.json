@@ -1,0 +1,31 @@
+{
+  "translation": {
+    "signin.title": "Welcome to Origin",
+    "signin.email": "Enter your email",
+    "signin.password": "Enter your password",
+    "signin.button": "Sign In",
+    "signin.account.message": "Do not have an account? ",
+    "signup.account.message": "click here to sign up",
+
+    "signup.title": "Welcome to Origin",
+    "signup.name": "Enter your name",
+    "signup.email": "Enter your email",
+    "signup.password": "Enter your password", 
+    "signup.selfie": "choose image",
+    "signup.button": "Sign Up",
+    "signup.attach.image": "Attach Image",
+
+    "invalid.name.message": "Name must be at least {{size}} characters",
+    "invalid.email.message": "Please enter a valid email",
+    "invalid.password.message": "Password must be at least {{size}} characters",
+
+    "signin.bar.title": "Sign In",
+    "signup.bar.title": "Sign Up",
+    "transactions.bar.title": "Transactions",
+    "details.bar.title": "Details",
+    "details.location.text": "Location",
+    "details.location.button": "Set current location",
+
+    "transactions.header.text": "Transactions"
+  }
+}
